@@ -1,0 +1,407 @@
+/* ===================== Tokens ===================== */
+:root {
+	--space-1: 4px;  --space-2: 8px;  --space-3: 12px;  --space-4: 16px;  --space-6: 24px;
+	--radius-pill: 10px; --radius-button: 7px;
+	--color-bg: #f8f9fa;
+	--color-glass: #f8f9fa24;   /* Tinted glass 90% opacity */
+	--color-glass-fallback: #ffffffcc; /* Firefox fallback */
+	--color-border: #e0e3e7;
+	--color-text: #1f2937;
+	--color-text-muted: #6b7280;
+	--color-accent: #60a5fa;
+	--color-accent-hover: #3b82f6;
+	--shadow-pill: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ===================== Base ===================== */
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	font-family: Arial, sans-serif;
+	background: var(--color-bg);
+	color: var(--color-text);
+}
+
+.app {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+
+/* ===================== Canvas ===================== */
+.app-canvas {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	right: 12px;
+	bottom: 12px;
+	width: calc(100% - 24px);
+	height: calc(100% - 24px);
+	background-color: #ffffff;
+	background-size: 40px 40px;
+	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+					  linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
+	border-radius: var(--radius-pill);
+	box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+/* ===================== Pills (Glass) ===================== */
+.pill {
+	position: absolute;
+	background: var(--color-glass-fallback); /* Fallback */
+	background: var(--color-glass);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	box-shadow: var(--shadow-pill);
+	padding: var(--space-3) var(--space-4);
+	z-index: 10;
+}
+
+.pill-header {
+	top: 24px;
+	left: 24px;
+	right: calc(50% + 24px);
+	max-width: calc(50% + 24px);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+}
+
+.header-title {
+	font-weight: 600;
+	font-size: 16px;
+	cursor: text;
+	padding: 2px 4px;
+	border-radius: 3px;
+	transition: background-color 0.15s ease;
+}
+
+.header-title:hover {
+	background-color: rgba(96, 165, 250, 0.1);
+}
+
+.header-title:focus {
+	outline: none;
+	background-color: rgba(96, 165, 250, 0.2);
+	box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+
+.pill-footer {
+	bottom: 24px;
+	left: 24px;
+	right: calc(50% + 24px);
+	max-width: calc(50% + 24px);
+}
+
+.pill-status {
+	position: absolute;
+	top: 24px;
+	right: 24px;
+	bottom: 24px;
+	width: calc(50% - 12px);
+	max-width: calc(50% - 12px);
+	min-width: 250px;
+	display: flex;
+	padding: 0;
+	overflow: hidden;
+}
+
+.status-drag-handle {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 8px;
+	cursor: col-resize;
+	background: transparent;
+	z-index: 11;
+}
+
+.status-drag-handle:hover {
+	background: rgba(96, 165, 250, 0.15);
+}
+
+/* ===================== Status Log ===================== */
+.status-log {
+	flex: 1;
+	padding: var(--space-3);
+	overflow-y: auto;
+	overflow-x: hidden;
+	line-height: 1.5;
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+.status-log::-webkit-scrollbar { width: 8px; }
+.status-log::-webkit-scrollbar-track { background: rgba(0,0,0,0.02); border-radius: 4px; }
+.status-log::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
+.status-log::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+
+/* ===================== Panels & Controls ===================== */
+.panel { margin: 0; }
+.is-hidden { display: none !important; }
+
+.controls-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-3);
+}
+
+.controls-row label {
+	font-size: 14px;
+	color: var(--color-text);
+}
+
+.controls-row button,
+.icon-button {
+	background: transparent;
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+	padding: 6px 12px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: all 0.15s ease;
+}
+
+.controls-row button:hover,
+.icon-button:hover {
+	background: var(--color-accent);
+	border-color: var(--color-accent);
+	color: white;
+}
+
+.controls-row button:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+	background: transparent;
+	color: var(--color-text-muted);
+}
+
+.icon-button {
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+}
+
+.controls-row input[type="text"] {
+	background: #f8f9fa;
+	color: var(--color-text);
+	border: none;
+	border-bottom: 1px solid var(--color-border);
+	border-radius: 0;
+	padding: 6px 4px;
+	font-size: 14px;
+	transition: border-color 0.15s ease;
+}
+
+.controls-row input[type="text"]:focus {
+	outline: none;
+	border-bottom: 2px solid var(--color-accent);
+	padding-bottom: 5px;
+}
+
+.controls-row input[type="text"]::placeholder {
+	color: var(--color-text-muted);
+	opacity: 0.6;
+}
+
+.controls-row select {
+	background: #f8f9fa;
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+	padding: 6px 8px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.controls-row select:focus {
+	outline: none;
+	border-color: var(--color-accent);
+}
+
+.controls-row input[type="checkbox"] {
+	cursor: pointer;
+	margin-right: 4px;
+}
+
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ===================== Context Menu ===================== */
+.context-menu {
+	position: fixed;
+	background: var(--color-glass-fallback); /* Fallback */
+	background: var(--color-glass);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	box-shadow: var(--shadow-pill);
+	z-index: 1000;
+}
+
+.menu-row { padding: 8px 12px; border-bottom: 1px solid #e0e0e0; }
+.menu-row:last-child { border-bottom: none; }
+
+.menu-edit-row { padding: 8px 12px; border-bottom: 1px solid #e0e0e0; display: flex; gap: 8px; align-items: center; }
+
+.menu-label { font-size: 14px; }
+.menu-info { font-size: 14px; color: #666; }
+
+.menu-input {
+	padding: 4px 6px;
+	font-size: 13px;
+	background: #f8f9fa;
+	border: 1px solid var(--color-border);
+	border-radius: 3px;
+	color: var(--color-text);
+}
+
+.menu-contenteditable {
+	min-height: 1.5em;
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+.menu-contenteditable:hover {
+	border-color: var(--color-accent);
+}
+
+.menu-contenteditable:focus {
+	border-color: var(--color-accent);
+	box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.menu-input-number { width: 72px; }
+.menu-input-text { width: auto; }
+
+.menu-button {
+	padding: 6px 8px;
+	font-size: 13px;
+	cursor: pointer;
+	background: transparent;
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+	transition: all 0.15s ease;
+}
+
+.menu-button:hover {
+	background: var(--color-accent);
+	border-color: var(--color-accent);
+	color: white;
+}
+
+.menu-apply-button {
+	flex-shrink: 0;
+}
+
+.menu-action-button { padding: 8px 12px; cursor: pointer; font-size: 14px; border-bottom: 1px solid #e0e0e0; }
+.menu-action-button:last-child { border-bottom: none; }
+.menu-delete-button { color: #d32f2f; }
+
+/* ===================== Confirmation Dialog ===================== */
+.confirm-dialog {
+	position: fixed;
+	background: var(--color-glass-fallback); /* Fallback */
+	background: var(--color-glass);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-pill);
+	box-shadow: var(--shadow-pill);
+	padding: 16px;
+	min-width: 250px;
+	z-index: 1001;
+}
+
+.confirm-message {
+	font-size: 14px;
+	margin-bottom: 12px;
+	color: var(--color-text);
+}
+
+.confirm-buttons {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+.confirm-cancel {
+	padding: 6px 12px;
+	cursor: pointer;
+	font-size: 13px;
+	background: transparent;
+	color: var(--color-text);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-button);
+	transition: all 0.15s ease;
+}
+
+.confirm-cancel:hover {
+	background: var(--color-accent);
+	border-color: var(--color-accent);
+	color: white;
+}
+
+.confirm-delete {
+	padding: 6px 12px;
+	cursor: pointer;
+	font-size: 13px;
+	background: #d32f2f;
+	color: white;
+	border: 1px solid #d32f2f;
+	border-radius: var(--radius-button);
+	transition: all 0.15s ease;
+}
+
+.confirm-delete:hover {
+	background: #b71c1c;
+	border-color: #b71c1c;
+}
+
+/* ===================== Responsive ===================== */
+@media (max-width: 900px) {
+	.app-canvas {
+		right: 12px;
+	}
+
+	.pill-header,
+	.pill-footer {
+		right: 12px;
+	}
+
+	.pill-status {
+		width: calc(100% - 24px);
+		height: auto;
+		bottom: auto;
+		top: auto;
+		right: 12px;
+		left: 12px;
+		min-height: 200px;
+	}
+
+	.status-drag-handle { display: none; }
+}

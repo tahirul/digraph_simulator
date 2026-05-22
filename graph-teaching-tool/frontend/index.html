@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Graph Teaching Tool</title>
+	<link rel="stylesheet" href="css/style.css" />
+ </head>
+<body>
+	<div id="app" class="app">
+		<!-- Full viewport canvas -->
+		<canvas id="graph-canvas" class="app-canvas"></canvas>
+
+		<!-- Floating header pill -->
+		<header class="pill pill-header">
+			<div class="header-title">Digraph simulator</div>
+			<div id="graph-title" class="header-title" contenteditable="true" title="Click to edit title">Untitled Graph</div>
+			<div class="header-actions">
+				<button id="btn-upload" class="icon-button" title="Upload" aria-label="Upload">⬆</button>
+				<input id="file-input" class="visually-hidden" type="file" accept="application/json" />
+				<button id="btn-download" class="icon-button" title="Download" aria-label="Download">⬇</button>
+			</div>
+		</header>
+
+		<!-- Floating footer pill -->
+		<footer class="pill pill-footer">
+			<!-- input controls -->
+			<div class="panel panel--input">
+				<div class="controls-row">
+					<select id="algorithm">
+						<option value="bfs">Breadth First Search</option>
+						<option value="dfs">Depth First Search</option>
+					</select>
+
+					<button id="btn-toggle-directed" title="Toggle graph direction">↔ Undirected</button>
+
+					<select id="start-node">
+						<option value="">Start Node</option>
+					</select>
+
+					<select id="end-node">
+						<option value="">End Node (optional)</option>
+					</select>
+
+					<button id="btn-clear">Clear graph</button>
+					<button id="btn-run">Run</button>
+				</div>
+			</div>
+			<!-- playback controls -->
+			<div class="panel panel--playback is-hidden">
+				<div class="controls-row playback-controls">
+					<button id="btn-rewind" title="Rewind to beginning">⏮ Rewind</button>
+					<button id="btn-step-back" title="Step back">⏪ Step Back</button>
+					<button id="btn-stop" title="Stop">⏹ Stop</button>
+					<button id="btn-play-pause" title="Play/Pause">▶ Play</button>
+					<button id="btn-step-forward" title="Step forward">⏩ Step Forward</button>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Floating status pill with drag handle -->
+		<aside class="pill pill-status">
+			<div class="status-drag-handle" id="status-drag-handle" title="Drag to resize"></div>
+			<div id="status" class="status-log" role="log" aria-live="polite"></div>
+		</aside>
+	</div>
+
+	<script type="module" src="js/app.js"></script>
+</body>
+</html>
