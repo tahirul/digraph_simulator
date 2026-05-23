@@ -1,81 +1,86 @@
-# Graph Teaching Tool MVP
+# Graph Teaching Tool
 
-Interactive web application for visualizing and learning graph algorithms through step-by-step animation.
+Graph Teaching Tool is an interactive web application for building graphs and visualising algorithm execution step by step. It combines a canvas-based frontend with a Flask API backend that returns trace data for animated playback.
 
-## Description
-
-A client-side focused web app that allows users to create custom graphs and visualize how different algorithms traverse them. Users can place nodes, create weighted/directed edges, and watch algorithms execute step-by-step with play/pause/step controls.
+![Algorithm playback](docs/media/demo.gif)
 
 ## Features
 
-- Interactive canvas for graph creation (drag nodes, click to connect)
-- Real-time graph visualization with node/edge labels
-- Step-by-step algorithm animation with playback controls
-- Auto-save graphs to browser localStorage
-- Export/import graphs as JSON
-- Support for multiple traversal and spanning tree algorithms
-- Right-click context menus for editing properties
-- Color-coded visualization (visited nodes, current node, traversed edges)
+- Interactive graph editor for creating and editing nodes and edges
+- Directed and undirected graph support
+- Weighted edges
+- Graph validation endpoint before execution
+- Step-by-step playback controls (play, pause, step, rewind, stop)
+- Traversal trace visualisation with visited nodes and traversed edges
+- JSON import/export support
 
-## Technology Stack
+## Supported Algorithms
 
-### Backend
-- Flask 3.x
-- NetworkX (graph operations and validation)
-- Python (unit tests with unittest/pytest)
+- Breadth-First Search (BFS)
+- Depth-First Search (DFS)
 
-### Frontend
-- Vanilla HTML5/CSS3/JavaScript (ES6+)
-- HTML5 Canvas API
-- Fetch API for backend communication
-- Browser localStorage for persistence
+Additional algorithms can be added through the backend algorithm module pattern.
+
+## Tech Stack
+
+- Backend: Flask, Flask-CORS, NetworkX
+- Frontend: Vanilla JavaScript (ES modules), HTML5 Canvas, CSS
+- Testing: Pytest
 
 ## Project Structure
 
-```
+```text
 graph-teaching-tool/
-├── backend/
-│   ├── algorithms/          # Algorithm implementations (DFS, BFS, Dijkstra, Prim's, Kruskal's)
-│   ├── app.py              # Flask app initialization
-│   ├── config.py           # Configuration
-│   ├── routes.py           # API endpoints
-│   ├── models.py           # Graph data structures
-│   ├── tests.py            # Unit tests
-│   └── requirements.txt    # Dependencies
-└── frontend/
-    ├── index.html          # Main page
-    ├── css/style.css       # Styling
-    └── js/
-        ├── app.js          # Main logic
-        ├── canvas.js       # Rendering
-        ├── api.js          # Backend calls
-        └── graph.js        # Graph state
+    backend/
+        algorithms/
+        app.py
+        routes.py
+        config.py
+        requirements.txt
+        tests.py
+        test_routes.py
+    frontend/
+        index.html
+        css/
+        js/
 ```
 
-## Installation
+## Getting Started
 
-1. Clone the repository
-2. Install Python 3.x
-3. Create a virtual environment: `python -m venv venv`
-4. Activate it: `venv\Scripts\activate` (Windows)
-5. Install dependencies: `pip install -r graph-teaching-tool/backend/requirements.txt`
+### Prerequisites
 
-## Running the Application
+- Python 3.10+
 
-### Backend
+### Installation
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+pip install -r graph-teaching-tool/backend/requirements.txt
 ```
+
+### Run the Application
+
+```powershell
 cd graph-teaching-tool/backend
 python app.py
 ```
-Server runs on `http://localhost:5000`
 
-### Frontend
-Open `http://localhost:5000` in a web browser.
-
+Open: http://localhost:5000
 
 ## Testing
 
-```
+```powershell
 cd graph-teaching-tool/backend
-python -m pytest tests.py
+python -m pytest tests.py test_routes.py
 ```
+
+## Roadmap
+
+- Expand test coverage for edge cases and integration paths
+- Add continuous integration workflow
+- Extend algorithm library
+
+## License
+
+MIT (recommended). Add a LICENSE file if not present.
